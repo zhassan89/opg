@@ -1,0 +1,9 @@
+--- # Tasks to install and configure awsCLI and boto
+
+
+- name: Install Apps
+  include: "installApps.yml"
+
+
+- name: Configure AWS keys
+  include: "configureKeys.yml"

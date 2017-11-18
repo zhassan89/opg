@@ -1,0 +1,27 @@
+--- # Configure user settings for awscli and boto
+
+# Optional - Only for demo purpose
+- name: Creates aws location for keys for ubuntu user
+  file: path=/home/ubuntu/.aws state=directory
+# Optional - Only for demo purpose
+- name: Creates aws location for keys for root user
+  file: path=/root/.aws state=directory
+
+- name: Generating boto file
+  action: template src=botofile dest=/home/ubuntu/.boto
+
+- name: Generating boto file for root
+  action: template src=botofile dest=/root/.boto
+
+- name: Generating awscli config file1
+  action: template src=awscli dest=/home/ubuntu/.aws/config
+
+- name: Generating awscli config file2
+  action: template src=awscli dest=/home/ubuntu/.aws/credentials
+
+
+- name: Generating awscli config file1 for root
+  action: template src=awscli dest=/root/.aws/config
+
+- name: Generating awscli config file2 for root
+  action: template src=awscli dest=/root/.aws/credentials

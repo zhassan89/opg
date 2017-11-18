@@ -1,0 +1,16 @@
+version: "2"
+services:
+
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+
+    volumes:
+      - ./nginx/site1.template:/etc/nginx/conf.d/foobar.template
+      - ./nginx/nginx_content/:/usr/share/nginx/html:ro
+    links:
+      - db:postgres
+      
+  db:
+    image: postgres:latest

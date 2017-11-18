@@ -1,0 +1,5 @@
+--- # Refer to this file for aws credentials that will give access to the instance to access s3
+
+aws_access_key_id: some_aws_access_key
+aws_secret_key_id:  some_aws_secret_key
+region: eu-west-2

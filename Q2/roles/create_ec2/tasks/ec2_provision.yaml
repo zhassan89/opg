@@ -1,0 +1,42 @@
+--- # Playbook to provision EC2
+
+
+
+# Details to provision instance - region, instance type, image, vpc subnet
+- name: "server1 instance provisioning"
+  local_action:
+    module: ec2
+    region: "eu-west-2"
+    key_name: "somekey"
+    instance_type: "t2.micro"
+    image: "ami-700d1214"
+    group: "sg1"
+    instance_tags:
+      Name: "Server1"
+      environment: "sandbox"
+    vpc_subnet_id: "{{ subnet0.stdout }}"
+    source_dest_check: no
+    wait: yes
+    assign_public_ip: yes
+    user_data: |
+               #!/bin/sh
+               sudo apt-get update
+               sudo apt-get install python aptitude python-simplejson -y
+    state: present
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: 10
+        delete_on_termination: no
+
+  register: instance1
+
+
+
+- name: Wait for SSH to start for server1
+  wait_for:
+    host: "{{ instance1.instances[0].public_dns_name }}"
+    port: 22
+    timeout: 300
+  delegate_to: "127.0.0.1"
+  

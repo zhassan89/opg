@@ -1,0 +1,9 @@
+--- # Tasks to install and configure awsCLI and boto
+
+
+- name: Query AWS for details
+  include: "Query.yaml"
+
+
+- name: Provision EC2
+  include: "ec2_provision.yaml"

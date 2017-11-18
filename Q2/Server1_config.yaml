@@ -1,0 +1,14 @@
+- name: Create node for Server1
+  hosts: localhost  
+  gather_facts: yes
+  roles:
+    - create_ec2
+
+ ## Let's configure 
+
+- hosts: tag_Name_Server1
+  become: yes
+  remote_user: ubuntu
+  gather_facts: yes
+  roles:
+    - awscli

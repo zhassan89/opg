@@ -1,0 +1,35 @@
+--- # Query VPC info
+
+
+
+# Gather metadata for VPC
+
+- name: get vpc1 vpc id
+  become: no
+  delegate_to: localhost
+  command: "aws ec2 describe-vpcs --filters Name=tag:Name,Values=vpc1
+           --query 'Vpcs[0].VpcId' --output text"
+  register: vpcid
+- debug: var=vpcid.stdout
+
+# Gather metadata for public subnet in 1st availability zone
+
+- name: get vpc1 subnet0 subnet id
+  become: no
+  delegate_to: localhost
+  command: "aws ec2 describe-subnets 
+           --region {{ region }}
+           --filters Name=tag:Name,Values=public_subnet_0
+           --query 'Subnets[0].SubnetId' --output text"
+  register: subnet0
+- debug: var=subnet0.stdout
+
+
+# Gather metadata for instance
+- name: get instance id
+  command: "aws ec2 describe-instances --filter Name=tag:Name,Values=server1
+   Name=instance-state-name,Values=running
+           --query 'Reservations[0].Instances[0].InstanceId' --output text"
+  register: appid
+
+

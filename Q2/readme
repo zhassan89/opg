@@ -1,0 +1,11 @@
+This code is under the assumption that there is an existing VPC with a secruity group on aws to launch the configuration
+
+You need to run the Server1_config.yaml playbook to do the following:
+- Provision ec2
+- Validate provisioning
+- Install AWSCLI & BOTO
+- Configure AWSCLI and botofiles
+
+
+
+## There is another which should work the same way by adding an IAM role and attaching to the instance upon creation
